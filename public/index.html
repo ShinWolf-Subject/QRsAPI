@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator API - Vercel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .qr-code {
+            max-width: 300px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .api-docs {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>QR Code Generator API</h1>
+            <p>Deployed on Vercel • Serverless • High Performance</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Live Demo</h2>
+            <form id="qrForm">
+                <div class="form-group">
+                    <label for="text">Text or URL to encode:</label>
+                    <input type="text" id="text" placeholder="https://example.com" value="https://vercel.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="size">Size (pixels):</label>
+                    <input type="number" id="size" value="200" min="50" max="1000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="margin">Margin:</label>
+                    <input type="number" id="margin" value="1" min="0" max="10">
+                </div>
+                
+                <div class="form-group">
+                    <label for="format">Format:</label>
+                    <select id="format">
+                        <option value="png">PNG</option>
+                        <option value="svg">SVG</option>
+                        <option value="pdf">PDF</option>
+                        <option value="eps">EPS</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Generate QR Code</button>
+            </form>
+            
+            <div class="result" id="result">
+                <!-- QR code will appear here -->
+            </div>
+        </div>
+
+        <div class="api-docs">
+            <h2>API Documentation</h2>
+            <p><strong>Base URL:</strong> <code id="baseUrl">https://your-app.vercel.app</code></p>
+            
+            <div class="endpoint">
+                <h3>GET /api/qr/generate</h3>
+                <p>Generate QR code via GET request</p>
+                <pre><code id="getExample">GET /api/qr/generate?text=HelloWorld&size=200&margin=1&format=png</code></pre>
+            </div>
+            
+            <div class="endpoint">
+                <h3>POST /api/qr/generate</h3>
+                <p>Generate QR code with custom options</p>
+                <pre><code>POST /api/qr/generate
+Content-Type: application/json
+
+{
+  "text": "Hello World",
+  "size": 300,
+  "margin": 2,
+  "format": "png",
+  "color": "#FF0000",
+  "background": "#FFFFFF"
+}</code></pre>
+            </div>
+            
+            <div class="endpoint">
+                <h3>GET /api/qr/info</h3>
+                <p>Get API usage information</p>
+            </div>
+            
+            <div class="endpoint">
+                <h3>GET /health</h3>
+                <p>Health check endpoint</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update URLs to use current domain
+        const baseUrl = window.location.origin;
+        document.getElementById('baseUrl').textContent = baseUrl;
+        document.getElementById('getExample').textContent = `GET ${baseUrl}/api/qr/generate?text=HelloWorld&size=200&format=png`;
+
+        document.getElementById('qrForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                text: document.getElementById('text').value,
+                size: document.getElementById('size').value,
+                margin: document.getElementById('margin').value,
+                format: document.getElementById('format').value
+            };
+            
+            try {
+                const params = new URLSearchParams(formData);
+                const response = await fetch(`${baseUrl}/api/qr/generate?${params}`);
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+                    
+                    document.getElementById('result').innerHTML = `
+                        <h3>Your QR Code:</h3>
+                        <div class="qr-code">
+                            <img src="${url}" alt="QR Code" style="max-width: 100%;">
+                        </div>
+                        <p>
+                            <a href="${url}" download="qr-code.${formData.format}">
+                                Download QR Code
+                            </a>
+                        </p>
+                    `;
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.message}`);
+                }
+            } catch (error) {
+                alert('Failed to generate QR code: ' + error.message);
+            }
+        });
+    </script>
+</body>
+                          </html>
