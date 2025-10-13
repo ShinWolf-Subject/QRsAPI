@@ -1,20 +1,17 @@
 import qr from 'qr-image';
 import { createHash } from 'crypto';
 
-// Helper function for rate limiting
 function getRateLimitKey(req) {
   const ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'anonymous';
   return createHash('md5').update(ip).digest('hex');
 }
 
-// Simple in-memory rate limiting (for demo - use Redis in production)
 const rateLimitStore = new Map();
 
 function checkRateLimit(key, limit = 50, windowMs = 900000) {
   const now = Date.now();
   const windowStart = now - windowMs;
   
-  // Clean old entries
   for (const [k, data] of rateLimitStore.entries()) {
     if (data.lastRequest < windowStart) {
       rateLimitStore.delete(k);
@@ -46,7 +43,6 @@ function checkRateLimit(key, limit = 50, windowMs = 900000) {
 }
 
 export default async function handler(req, res) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -55,13 +51,11 @@ export default async function handler(req, res) {
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   );
 
-  // Handle OPTIONS request for CORS
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
-  // Rate limiting
   const rateLimitKey = getRateLimitKey(req);
   if (!checkRateLimit(rateLimitKey)) {
     res.status(429).json({
@@ -95,7 +89,6 @@ async function handleGetRequest(req, res) {
   const { query } = req;
   const { text, size = 200, margin = 1, format = 'png' } = query;
 
-  // Validation
   if (!text) {
     res.status(400).json({
       error: 'Missing required parameter',
@@ -140,14 +133,12 @@ async function handleGetRequest(req, res) {
     return;
   }
 
-  // Generate QR code
   const qrImage = qr.image(text, {
     type: format,
     size: sizeNum,
     margin: marginNum
   });
 
-  // Set response headers
   const contentType = {
     png: 'image/png',
     svg: 'image/svg+xml',
@@ -157,7 +148,7 @@ async function handleGetRequest(req, res) {
 
   res.setHeader('Content-Type', contentType);
   res.setHeader('Content-Disposition', `inline; filename="qr-code.${format}"`);
-  res.setHeader('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
+  res.setHeader('Cache-Control', 'public, max-age=86400'); 
   res.setHeader('CDN-Cache-Control', 'public, max-age=86400');
   res.setHeader('Vercel-CDN-Cache-Control', 'public, max-age=86400');
 
@@ -174,7 +165,6 @@ async function handlePostRequest(req, res) {
     background = '#FFFFFF'
   } = req.body;
 
-  // Validation
   if (!text) {
     res.status(400).json({
       error: 'Missing required parameter',
@@ -183,7 +173,6 @@ async function handlePostRequest(req, res) {
     return;
   }
 
-  // Generate QR code with custom colors
   const qrOptions = {
     type: format,
     size: parseInt(size),
@@ -208,4 +197,4 @@ async function handlePostRequest(req, res) {
   res.setHeader('Vercel-CDN-Cache-Control', 'public, max-age=86400');
 
   qrImage.pipe(res);
-      }
+}
