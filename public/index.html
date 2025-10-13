@@ -4,195 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator API - Vercel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Outfit:wght@400;450&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
-        
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .demo-section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #555;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-        }
-        
-        .result {
-            text-align: center;
-            margin-top: 30px;
-        }
-        
-        .qr-code {
-            max-width: 300px;
-            margin: 20px auto;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-        }
-        
-        .api-docs {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .endpoint {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 15px 0;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>QR Code Generator API</h1>
-            <p>Deployed on Vercel • Serverless • High Performance</p>
-        </div>
+<body class="min-h-screen p-5">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-12 opacity-0" id="header">
+            <div class="inline-block bg-purple-900/30 backdrop-blur-sm border border-purple-500/30 rounded-full px-6 py-3 mb-6">
+                <span class="text-2xl">👋</span>
+                <span class="text-purple-300 ml-2">Welcome to QR Generator</span>
+            </div>
+            <h1 class="text-6xl font-bold mb-3">
+                <span class="text-white">Hi, I'm </span>
+                <span class="text-emerald-400">QR Gen</span>
+            </h1>
+            <p class="text-gray-400 text-xl mb-2">Serverless QR Code API</p>
+            <p class="text-gray-500 text-base">Deployed on Vercel • High Performance • Modern Technologies</p>
+        </header>
 
-        <div class="demo-section">
-            <h2>Live Demo</h2>
+        <!-- Demo Section -->
+        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl shadow-2xl p-8 mb-8 opacity-0" id="demoSection">
+            <h2 class="text-3xl font-bold text-white mb-6">Live Demo</h2>
             <form id="qrForm">
-                <div class="form-group">
-                    <label for="text">Text or URL to encode:</label>
-                    <input type="text" id="text" placeholder="https://example.com" value="https://vercel.com" required>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-2" for="text">Text or URL to encode:</label>
+                        <input 
+                            type="text" 
+                            id="text" 
+                            placeholder="https://example.com" 
+                            value="https://vercel.com"
+                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-emerald-500 focus:outline-none transition-colors"
+                            required
+                        >
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-2" for="size">Size (pixels):</label>
+                        <input 
+                            type="number" 
+                            id="size" 
+                            value="200" 
+                            min="50" 
+                            max="1000"
+                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                        >
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-2" for="margin">Margin:</label>
+                        <input 
+                            type="number" 
+                            id="margin" 
+                            value="1" 
+                            min="0" 
+                            max="10"
+                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                        >
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-2" for="format">Format:</label>
+                        <select 
+                            id="format"
+                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                        >
+                            <option value="png">PNG</option>
+                            <option value="svg">SVG</option>
+                            <option value="pdf">PDF</option>
+                            <option value="eps">EPS</option>
+                        </select>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="size">Size (pixels):</label>
-                    <input type="number" id="size" value="200" min="50" max="1000">
-                </div>
-                
-                <div class="form-group">
-                    <label for="margin">Margin:</label>
-                    <input type="number" id="margin" value="1" min="0" max="10">
-                </div>
-                
-                <div class="form-group">
-                    <label for="format">Format:</label>
-                    <select id="format">
-                        <option value="png">PNG</option>
-                        <option value="svg">SVG</option>
-                        <option value="pdf">PDF</option>
-                        <option value="eps">EPS</option>
-                    </select>
-                </div>
-                
-                <button type="submit">Generate QR Code</button>
+                <button 
+                    type="submit"
+                    class="w-full md:w-auto bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 transform hover:-translate-y-1 transition-all duration-200"
+                >
+                    Generate QR Code
+                </button>
             </form>
             
-            <div class="result" id="result">
+            <div class="text-center mt-8" id="result">
                 <!-- QR code will appear here -->
             </div>
         </div>
 
-        <div class="api-docs">
-            <h2>API Documentation</h2>
-            <p><strong>Base URL:</strong> <code id="baseUrl">https://your-app.vercel.app</code></p>
+        <!-- API Documentation -->
+        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl shadow-2xl p-8 opacity-0" id="apiDocs">
+            <h2 class="text-3xl font-bold text-white mb-6">API Documentation</h2>
+            <p class="mb-6 text-gray-300">
+                <strong class="text-white">Base URL:</strong> 
+                <code class="bg-gray-800/70 px-3 py-1 rounded text-sm font-mono text-emerald-400 border border-gray-700" id="baseUrl">https://your-app.vercel.app</code>
+            </p>
             
-            <div class="endpoint">
-                <h3>GET /api/qr/generate</h3>
-                <p>Generate QR code via GET request</p>
-                <pre><code id="getExample">GET /api/qr/generate?text=HelloWorld&size=200&margin=1&format=png</code></pre>
-            </div>
-            
-            <div class="endpoint">
-                <h3>POST /api/qr/generate</h3>
-                <p>Generate QR code with custom options</p>
-                <pre><code>POST /api/qr/generate
+            <div class="space-y-6">
+                <div class="bg-gray-800/30 border-l-4 border-emerald-500 p-6 rounded-r-lg endpoint">
+                    <h3 class="text-xl font-bold text-white mb-2">GET /api/qr/generate</h3>
+                    <p class="text-gray-400 mb-4">Generate QR code via GET request</p>
+                    <pre class="bg-gray-950 text-emerald-400 p-4 rounded-lg overflow-x-auto border border-gray-800"><code id="getExample">GET /api/qr/generate?text=HelloWorld&size=200&margin=1&format=png</code></pre>
+                </div>
+                
+                <div class="bg-gray-800/30 border-l-4 border-emerald-500 p-6 rounded-r-lg endpoint">
+                    <h3 class="text-xl font-bold text-white mb-2">POST /api/qr/generate</h3>
+                    <p class="text-gray-400 mb-4">Generate QR code with custom options</p>
+                    <pre class="bg-gray-950 text-emerald-400 p-4 rounded-lg overflow-x-auto border border-gray-800"><code>POST /api/qr/generate
 Content-Type: application/json
 
 {
@@ -203,21 +127,55 @@ Content-Type: application/json
   "color": "#FF0000",
   "background": "#FFFFFF"
 }</code></pre>
-            </div>
-            
-            <div class="endpoint">
-                <h3>GET /api/qr/info</h3>
-                <p>Get API usage information</p>
-            </div>
-            
-            <div class="endpoint">
-                <h3>GET /health</h3>
-                <p>Health check endpoint</p>
+                </div>
+                
+                <div class="bg-gray-800/30 border-l-4 border-emerald-500 p-6 rounded-r-lg endpoint">
+                    <h3 class="text-xl font-bold text-white mb-2">GET /api/qr/info</h3>
+                    <p class="text-gray-400">Get API usage information</p>
+                </div>
+                
+                <div class="bg-gray-800/30 border-l-4 border-emerald-500 p-6 rounded-r-lg endpoint">
+                    <h3 class="text-xl font-bold text-white mb-2">GET /health</h3>
+                    <p class="text-gray-400">Health check endpoint</p>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // GSAP Animations
+        gsap.to("#header", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+
+        gsap.to("#demoSection", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.2,
+            ease: "power3.out"
+        });
+
+        gsap.to("#apiDocs", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.4,
+            ease: "power3.out"
+        });
+
+        gsap.from(".endpoint", {
+            opacity: 0,
+            x: -30,
+            duration: 0.6,
+            stagger: 0.1,
+            delay: 0.6,
+            ease: "power2.out"
+        });
+
         // Update URLs to use current domain
         const baseUrl = window.location.origin;
         document.getElementById('baseUrl').textContent = baseUrl;
@@ -241,17 +199,28 @@ Content-Type: application/json
                     const blob = await response.blob();
                     const url = URL.createObjectURL(blob);
                     
-                    document.getElementById('result').innerHTML = `
-                        <h3>Your QR Code:</h3>
-                        <div class="qr-code">
-                            <img src="${url}" alt="QR Code" style="max-width: 100%;">
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = `
+                        <h3 class="text-2xl font-bold text-white mb-4">Your QR Code:</h3>
+                        <div class="inline-block border-2 border-gray-700 rounded-lg p-4 bg-gray-800/50 shadow-lg">
+                            <img src="${url}" alt="QR Code" class="max-w-full" id="qrImage">
                         </div>
-                        <p>
-                            <a href="${url}" download="qr-code.${formData.format}">
+                        <p class="mt-4">
+                            <a href="${url}" 
+                               download="qr-code.${formData.format}"
+                               class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 transform hover:-translate-y-1 transition-all duration-200">
                                 Download QR Code
                             </a>
                         </p>
                     `;
+                    
+                    // Animate QR code appearance
+                    gsap.from("#qrImage", {
+                        scale: 0,
+                        rotation: -180,
+                        duration: 0.8,
+                        ease: "back.out(1.7)"
+                    });
                 } else {
                     const error = await response.json();
                     alert(`Error: ${error.message}`);
@@ -262,4 +231,4 @@ Content-Type: application/json
         });
     </script>
 </body>
-                          </html>
+</html>
