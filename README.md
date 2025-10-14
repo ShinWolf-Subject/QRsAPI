@@ -1,8 +1,8 @@
-📦 QR Code Generator API
+# 📦 QR Code Generator API
 
 Generate high-performance QR codes via a simple RESTful API. Deployed serverlessly on Vercel for blazing-fast response times.
 
-🚀 Live Demo
+## 🚀 Live Demo
 
 Explore the API live at qrsapi.vercel.app
 
@@ -16,7 +16,7 @@ https://qrsapi.vercel.app
 
 ---
 
-📥 GET /api/qr/generate
+### 📥 GET /api/qr/generate
 
 Generate a QR code via query parameters.
 
@@ -36,7 +36,7 @@ Query Parameters:
 
 ---
 
-📤 POST /api/qr/generate
+### 📤 POST /api/qr/generate
 
 Generate a QR code with custom options via JSON payload.
 
@@ -61,19 +61,19 @@ Body Example:
 
 ---
 
-📊 GET /api/qr/info
+### 📊 GET /api/qr/info
 
 Returns API usage information and metadata.
 
 ---
 
-❤️ GET /health
+### ❤️ GET /health
 
 Health check endpoint to verify server status.
 
 ---
 
-🛠 Tech Stack
+### 🛠 Tech Stack
 
 - Serverless Functions (Vercel)
 - Node.js
