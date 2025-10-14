@@ -81,7 +81,7 @@ Health check endpoint to verify server status.
 
 📄 License
 
-MIT
+[MIT](https://github.com/ShinWolf-Subject/qrsapi/blob/main/LICENSE)
 
 ---
 
