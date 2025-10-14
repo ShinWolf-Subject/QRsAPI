@@ -1,19 +1,24 @@
 {
-  "name": "qr-code-api-vercel",
-  "version": "1.0.0",
-  "description": "QR Code Generation API deployed on Vercel",
-  "type": "module",
-  "scripts": {
-    "dev": "vercel dev"
-  },
-  "dependencies": {
-    "qr-image": "^3.2.0",
-    "cors": "^2.8.5"
-  },
-  "devDependencies": {
-    "vercel": "^28.16.0"
-  },
-  "keywords": ["qr", "api", "vercel", "serverless"],
-  "author": "Your Name",
-  "license": "MIT"
+    "name": "qr-code-api",
+    "version": "1.2.6",
+    "description": "QR Code Generation API deployed on Vercel",
+    "type": "module",
+    "scripts": {
+        "dev": "vercel dev"
+    },
+    "dependencies": {
+        "qr-image": "^3.2.0",
+        "cors": "^2.8.5"
+    },
+    "devDependencies": {
+        "vercel": "^28.16.0"
+    },
+    "keywords": [
+        "qr",
+        "api",
+        "vercel",
+        "serverless"
+    ],
+    "author": "Nine12",
+    "license": "MIT"
 }
