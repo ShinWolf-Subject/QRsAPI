@@ -4,7 +4,7 @@ Generate high-performance QR codes via a simple RESTful API. Deployed serverless
 
 ## 🚀 Live Demo
 
-Explore the API live at qrsapi.vercel.app
+Explore the API live at [qrsapi.vercel.app](qrsapi.vercel.app)
 
 📘 API Documentation
 
