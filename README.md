@@ -1,4 +1,4 @@
-# 📦 QR Code Generator API
+# 📦 QR Code Generation API
 
 Generate high-performance QR codes via a simple RESTful API. Deployed serverlessly on Vercel for blazing-fast response times.
 
