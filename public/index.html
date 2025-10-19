@@ -213,7 +213,7 @@ Content-Type: application/json
         
         const baseUrl = window.location.origin;
         document.getElementById('baseUrl').textContent = baseUrl;
-        document.getElementById('getExample').textContent = `GET ${baseUrl}/api/qr/generate?text=HelloWorld&size=200&format=png`;
+        document.getElementById('getExample').textContent = `GET ${baseUrl}/api/qr/generate?text=HelloWorld&size=200&margin=1&format=png`;
         
         document.getElementById('qrForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -264,4 +264,4 @@ Content-Type: application/json
         });
     </script>
 </body>
-                </html>
+                                                                                                                                                                                                               </html>
