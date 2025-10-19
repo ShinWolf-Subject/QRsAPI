@@ -97,7 +97,7 @@ Health check endpoint to verify server status.
 
 ---
 
-[Nine12](https://fqnlst.vercel.app) for qrsapi.vercel.app
+Made by [Nine12](https://fqnlst.vercel.app) for QRsAPI
 
 
 
