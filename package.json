@@ -1,6 +1,6 @@
 {
     "name": "qr-code-api",
-    "version": "1.2.6",
+    "version": "1.0.6",
     "description": "QR Code Generation API deployed on Vercel",
     "type": "module",
     "scripts": {
