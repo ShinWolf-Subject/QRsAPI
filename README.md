@@ -1,4 +1,4 @@
-# 📦 QR Code Generation API
+# 📦 QR Code Generator API
 
 ![Powered by Vercel](/vercel.svg)
 
