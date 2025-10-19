@@ -48,7 +48,7 @@ Generate a QR code with custom options via JSON payload.
 
 Headers:
 
-```bash
+```
 Content-Type: application/json
 ```
 
