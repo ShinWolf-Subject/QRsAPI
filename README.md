@@ -94,8 +94,7 @@ Health check endpoint to verify server status.
 
 ---
 
-<i class="fas fa-check"> </i> [Nine12](https://fqnlst.vercel.app) for qrsapi.vercel.app
+[Nine12](https://fqnlst.vercel.app) for qrsapi.vercel.app
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
 
 
