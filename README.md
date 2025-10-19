@@ -23,11 +23,13 @@ Generate a QR code via query parameters.
 Example:
 
 ```
-GET https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&format=png
+GET https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&margin=1&format=png
 ```
 ```html
-<img src="https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&format=png" alt="QR Code" />
+<img src="https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&margin=1&format=png" alt="QR Code" />
 ```
+Preview:
+![QR Code](https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&margin=1&format=png)
 
 <strong>Query Parameters:</strong>
 
