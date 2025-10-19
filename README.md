@@ -29,6 +29,7 @@ GET https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&margin
 <img src="https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&margin=1&format=png" alt="QR Code" />
 ```
 Preview:
+
 ![QR Code](https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&margin=1&format=png)
 
 <strong>Query Parameters:</strong>
