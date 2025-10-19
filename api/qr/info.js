@@ -9,7 +9,7 @@ export default function handler(req, res) {
 
     res.json({
         service: 'QR Code Generator API',
-        version: '1.0.0',
+        version: '1.0.6',
         deployedOn: 'Vercel',
         endpoints: {
             'GET /api/qr/generate': {
