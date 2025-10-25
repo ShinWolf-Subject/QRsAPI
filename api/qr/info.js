@@ -20,7 +20,7 @@ export default function handler(req, res) {
                     margin: 'Optional. Margin size (0-10), default: 1',
                     format: 'Optional. Output format (png, svg, pdf, eps), default: png'
                 },
-                example: 'https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&format=png'
+                example: 'https://qrsapi.vercel.app/api/qr/generate?text=Hello%20World&size=200&margin=2&format=png'
             },
             'POST /api/qr/generate': {
                 description: 'Generate QR code with custom options',
